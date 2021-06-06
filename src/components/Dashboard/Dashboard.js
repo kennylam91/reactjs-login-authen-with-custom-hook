@@ -13,8 +13,7 @@ export default function Dashboard() {
       <textarea rows="5" cols="100" value={textInput} onChange={(event) => setTextInput(event.target.value)} />
       <br/>
       <button onClick={toggleShowResult} >Show result</button>
-      {showResult && <p>This displays a list of the most common characters</p>}
-      <CharacterMap textInput={textInput} />
+      <CharacterMap textInput={textInput} showResult={showResult} />
     </div>
   )
 }
