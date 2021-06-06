@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import CharacterMap from '../CharacterMap/CharacterMap';
 
 export default function Dashboard() {
-  const [textInput, setTextInput] = useState();
+  const [textInput, setTextInput] = useState('');
   return (
     <div>
       <h2>Dashboard</h2>
