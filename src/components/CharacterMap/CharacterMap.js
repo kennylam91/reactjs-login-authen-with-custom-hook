@@ -1,25 +1,11 @@
 import PropTypes from "prop-types";
+import { memo } from "react";
 
-export default function CharacterMap({textInput}) {
-
-  /** 
-   * @return {object}, 
-   * @param {string} textInput 
-  */
-  const itemize = (textInput) => {
-    return (textInput + '').split('').filter(char => char !== ' ')
-      .reduce((acc, currentValue) => {
-        const letter = currentValue.toLocaleLowerCase();
-        return {
-          ...acc,
-          [letter]: (acc[letter] || 0) + 1
-        }
-      }, {});
-  }
+function CharacterMap({textInput}) {
   return (
     <div>
       {(Object.entries(itemize(textInput)).map(([key, value]) => {
-        return <span>{key} : {value} <br/></span>
+        return <span key={key}>{key} : {value} <br/></span>
       }))}
     </div>
   )
@@ -27,3 +13,20 @@ export default function CharacterMap({textInput}) {
 CharacterMap.propTypes = {
   textInput: PropTypes.string.isRequired
 }
+
+/** 
+   * @return {object}, 
+   * @param {string} input 
+  */
+ const itemize = (input) => {
+  return (input + '').split('').filter(char => char !== ' ')
+    .reduce((acc, currentValue) => {
+      const letter = currentValue.toLocaleLowerCase();
+      return {
+        ...acc,
+        [letter]: (acc[letter] || 0) + 1
+      }
+    }, {});
+}
+
+export default memo(CharacterMap);
