@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
 import { memo, useMemo } from "react";
 
-function CharacterMap({textInput, showResult}) {
+function CharacterMap({textInput, showResult, transformer}) {
 
-  const characters = useMemo(() => itemize(textInput), [textInput]);
+  const characters = useMemo(() => itemize(textInput, transformer), [textInput, transformer]);
   return (
     <div>
       {showResult && <p>This displays a list of the most common characters</p>}
@@ -15,17 +15,19 @@ function CharacterMap({textInput, showResult}) {
 }
 CharacterMap.propTypes = {
   textInput: PropTypes.string.isRequired,
-  showResult: PropTypes.bool
+  showResult: PropTypes.bool,
+  transformer: PropTypes.func
 }
 
 /** 
    * @return {object}, 
    * @param {string} input 
+   * @param {function} transformer
   */
- const itemize = (input) => {
+ const itemize = (input, transformer) => {
   return (input + '').split('').filter(char => char !== ' ')
     .reduce((acc, currentValue) => {
-      const letter = currentValue.toLocaleLowerCase();
+      const letter = transformer? transformer(currentValue) : currentValue;
       return {
         ...acc,
         [letter]: (acc[letter] || 0) + 1
