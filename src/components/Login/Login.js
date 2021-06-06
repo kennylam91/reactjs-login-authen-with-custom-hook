@@ -10,7 +10,6 @@ export default function Login({setToken}) {
     try {
       let token = await login({username, password});
       setToken(token);
-      localStorage.setItem('token', token);
     } catch(err) {
       alert(err);
     }

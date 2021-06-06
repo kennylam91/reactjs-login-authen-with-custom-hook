@@ -3,11 +3,11 @@ import './App.css';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Dashboard from './components/Dashboard/Dashboard';
 import Preferences from './components/Preferences/Preferences';
-import { useState } from "react";
 import Login from './components/Login/Login';
+import useToken from './custom-hooks/useToken';
 
 function App() {
-  const [token, setToken] = useState(localStorage.getItem('token'));
+  const [token, setToken] = useToken();
 
   if(!token){
     return <Login setToken={setToken}/>
